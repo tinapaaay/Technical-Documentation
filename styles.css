@@ -44,17 +44,16 @@ body {
   padding: 0 0.75rem 1.75rem;
 }
 
-.logo {
-  display: grid;
-  width: 2.5rem;
-  aspect-ratio: 1;
-  margin-bottom: 1.25rem;
-  place-items: center;
-  border: 1px solid #8abbe2;
-  border-radius: 50%;
-  color: #8abbe2;
-  font-weight: bold;
-  letter-spacing: 0.08em;
+.brand-logo {
+  display: block;
+  width: 140px;
+  margin-bottom: 1rem;
+}
+
+.brand-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 #navbar h1 {
