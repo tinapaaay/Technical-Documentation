@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CSS Layout Field Notes</title>
+  <meta
+    name="description"
+    content="A beginner-friendly guide to CSS layout concepts."
+  >
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <nav id="navbar">
+    <header>
+      <p class="logo">CJE</p>
+      <h1>CSS Layout<br>Field Notes</h1>
+      <p class="nav-description">A beginner-friendly reference for building responsive layouts.</p>
+    </header>
+
+    <ul>
+      <li><a class="nav-link" href="#Introduction">Introduction</a></li>
+      <li><a class="nav-link" href="#The_Box_Model">The Box Model</a></li>
+      <li><a class="nav-link" href="#Flexbox_Basics">Flexbox Basics</a></li>
+      <li><a class="nav-link" href="#CSS_Grid_Basics">CSS Grid Basics</a></li>
+      <li><a class="nav-link" href="#Responsive_Design">Responsive Design</a></li>
+      <li><a class="nav-link" href="#Positioning_Elements">Positioning Elements</a></li>
+      <li><a class="nav-link" href="#Useful_Layout_Patterns">Useful Layout Patterns</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-doc">
+    <header class="page-heading">
+      <p class="eyebrow">Frontend learning notes</p>
+      <h1>Build layouts with intention.</h1>
+      <p>
+        A practical guide to the CSS concepts that help websites feel organized,
+        responsive, and easier to use.
+      </p>
+    </header>
+
+    <section class="main-section" id="Introduction">
+      <header>
+        <h2>Introduction</h2>
+      </header>
+
+      <p>
+        CSS layout is how we control the placement, spacing, and behavior of
+        elements on a webpage. Good layouts are not only visually appealing;
+        they also help people read and navigate content more easily.
+      </p>
+
+      <p>
+        This guide focuses on core CSS tools that are useful for modern web
+        development: the box model, Flexbox, Grid, responsive design, and
+        positioning.
+      </p>
+
+      <aside class="note">
+        <p><strong>Quick reminder:</strong> Choose the layout tool based on the problem. Flexbox is great for one-dimensional rows or columns, while Grid is better for layouts with rows and columns.</p>
+      </aside>
+    </section>
+
+    <section class="main-section" id="The_Box_Model">
+      <header>
+        <h2>The Box Model</h2>
+      </header>
+
+      <p>
+        Every HTML element is treated like a rectangular box. The box model has
+        four layers: content, padding, border, and margin.
+      </p>
+
+      <pre><code>* {
+  box-sizing: border-box;
+}</code></pre>
+
+      <p>
+        Using <code>box-sizing: border-box</code> makes width calculations
+        easier because padding and borders are included inside an element’s set
+        width.
+      </p>
+
+      <ul>
+        <li><strong>Content:</strong> the text, image, or item inside the box</li>
+        <li><strong>Padding:</strong> space inside the box</li>
+        <li><strong>Border:</strong> the line around the padding and content</li>
+        <li><strong>Margin:</strong> space outside the box</li>
+      </ul>
+    </section>
+
+    <section class="main-section" id="Flexbox_Basics">
+      <header>
+        <h2>Flexbox Basics</h2>
+      </header>
+
+      <p>
+        Flexbox is useful when arranging items in one direction: either a row
+        or a column. It is commonly used for navigation bars, button groups,
+        card content, and small layouts.
+      </p>
+
+      <pre><code>.card-row {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+}</code></pre>
+
+      <p>
+        The <code>gap</code> property creates consistent space between sibling
+        elements. It is usually cleaner than adding margins to each item.
+      </p>
+
+      <details>
+        <summary>When should I use <code>flex: 1</code>?</summary>
+        <p>
+          Use it when an item should grow and take available space. For example,
+          a card’s content area can use <code>flex: 1</code> so buttons line up
+          at the bottom of different cards.
+        </p>
+      </details>
+    </section>
+
+    <section class="main-section" id="CSS_Grid_Basics">
+      <header>
+        <h2>CSS Grid Basics</h2>
+      </header>
+
+      <p>
+        CSS Grid is useful for two-dimensional layouts. It lets you control both
+        columns and rows, making it ideal for galleries, dashboard layouts, and
+        project-card sections.
+      </p>
+
+      <pre><code>.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}</code></pre>
+
+      <p>
+        The <code>repeat(3, 1fr)</code> value creates three equal columns.
+        The <code>fr</code> unit means “a fraction of the available space.”
+      </p>
+
+      <details>
+        <summary>What does <code>minmax()</code> do?</summary>
+        <p>
+          It sets a minimum and maximum size for a grid track. It is helpful
+          when you want columns to resize naturally without becoming too small.
+        </p>
+      </details>
+
+      <pre><code>.project-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  );
+  gap: 1.5rem;
+}</code></pre>
+    </section>
+
+    <section class="main-section" id="Responsive_Design">
+      <header>
+        <h2>Responsive Design</h2>
+      </header>
+
+      <p>
+        Responsive design means that a webpage adapts to different screen
+        sizes. A desktop layout may use multiple columns, while a mobile layout
+        may stack the same content vertically.
+      </p>
+
+      <pre><code>@media (max-width: 700px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}</code></pre>
+
+      <p>
+        You can also use <code>clamp()</code> for fluid text sizes that grow
+        with the screen but stay within a minimum and maximum size.
+      </p>
+
+      <pre><code>h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}</code></pre>
+
+      <details>
+        <summary>Why use <code>max-inline-size</code> for paragraphs?</summary>
+        <p>
+          It controls line length so paragraphs remain readable. Very wide text
+          lines are harder to follow, especially on large screens.
+        </p>
+      </details>
+    </section>
+
+    <section class="main-section" id="Positioning_Elements">
+      <header>
+        <h2>Positioning Elements</h2>
+      </header>
+
+      <p>
+        Positioning lets you place elements in a more specific location.
+        Normal document flow should be your default, but positioning is useful
+        for small details like image captions, badges, and sticky navigation.
+      </p>
+
+      <pre><code>#navbar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}</code></pre>
+
+      <p>
+        A sticky sidebar stays visible while the reader scrolls through the
+        documentation. This makes it easier to move between sections.
+      </p>
+
+      <pre><code>.image-caption {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+}</code></pre>
+
+      <p>
+        An absolutely positioned element is positioned relative to its nearest
+        ancestor with <code>position: relative</code>.
+      </p>
+    </section>
+
+    <section class="main-section" id="Useful_Layout_Patterns">
+      <header>
+        <h2>Useful Layout Patterns</h2>
+      </header>
+
+      <p>
+        Most interfaces are built by combining a few reliable layout patterns.
+        Learning these patterns makes future projects faster to plan and build.
+      </p>
+
+      <ul>
+        <li>Centered content using <code>width: min(1100px, 90%)</code></li>
+        <li>Responsive card grids using <code>auto-fit</code> and <code>minmax()</code></li>
+        <li>Equal-height cards using Flexbox and <code>flex: 1</code></li>
+        <li>Sticky sidebars for documentation layouts</li>
+        <li>Mobile-first layouts that stack content when space becomes limited</li>
+      </ul>
+
+      <p>
+        Continue practicing by looking at a design first, identifying its
+        layout patterns, then rebuilding it with semantic HTML and CSS.
+      </p>
+    </section>
+
+    <footer>
+      <p>Created by Christine Joy Espiritu while learning frontend development.</p>
+    </footer>
+  </main>
+</body>
+</html>
